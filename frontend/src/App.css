@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Balsamiq Sans';
+    src: url(./assets/fonts/BalsamiqSans-Regular.ttf) format("opentype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Balsamiq Sans';
+    src: url(./assets/fonts/BalsamiqSans-Bold.ttf) format("opentype");
+    font-weight: 600;
+}
+
+* {
+    font-family: 'Balsamiq Sans';
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+}
+
+html, body, #root {
+    height: 100%;
+}
+body {
+    background-color: #FFE9C8;
+}
+.flex-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button {
+    width: 280px;
+    height: 70px;
+    border: none;
+    background-color: #F6A831;
+    border-radius: 13px;
+    color:#000000;
+    font-size: 2em;
+    line-height: 120%;
+    cursor: pointer;
+    transition: backgroundColor 0.3s;
+}
+button:hover {
+    background-color: #f8b042;
+}

@@ -1,42 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { updateConnectionStateAction } from './store/actions';
+import { Store } from './store/store-reducer';
+
+import Landing from './components/pages/Landing';
+
 import io from 'socket.io-client';
 import './App.css';
 
 const socket = io("http://127.0.0.1:3001", { transports : ['websocket'] });
 
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [andrewLox, setAndrewLox] = useState(null);
 
+  const { state, dispatch } = useContext(Store);
+  console.log(state);
   useEffect(() => {
-    socket.on('connect', () => {
-      setIsConnected(true);
-    });
+    socket.on('connect', () => updateConnectionStateAction(dispatch, true));
+    socket.on('disconnect', () => updateConnectionStateAction(dispatch, false));
 
-    socket.on('disconnect', () => {
-      setIsConnected(false);
-    });
-    socket.on('testResponse', (msg) => {
-      setAndrewLox(msg);
-    });
     return () => {
       socket.off('connect');
       socket.off('disconnect');
-      socket.off('testResponse');
     };
   }, []);
 
-  function sendData() {
-    if (!isConnected) return;
-    socket.emit("test", "Андрей лох");
-  }
-
   return (
-    <>
-      <div>Андрей лох</div>
-      <button onClick={() => sendData()}>Кнопка для теста бекенда</button>
-      <h1>{andrewLox}</h1>
-    </>
+    <Landing/>
   );
 }
 
