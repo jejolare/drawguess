@@ -6,6 +6,9 @@
     align-items: center;
     justify-content: center;
 }
+.landing-wrapper > input {
+    width: 674px;
+}
 .landing-wrapper .flex-wrapper {
     width: 674px;
     margin-top: 27px;
@@ -74,6 +77,9 @@
         margin-top: 17px;
         width: 600px;
     }
+    .landing-wrapper > input {
+        width: 600px;
+    } 
 }
 
 @media screen and (max-height: 600px), screen and (max-width: 650px) {
@@ -83,6 +89,9 @@
         padding: 0 10%;
         box-sizing: border-box;
     }
+    .landing-wrapper > input {
+        width: 250px;
+    } 
     .landing-wrapper .flex-wrapper > button:nth-child(2) {
         margin-top: 20px;
     }
