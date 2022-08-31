@@ -140,7 +140,7 @@ function makeCode(length) {
                 let playersWithNew = JSON.parse(selected[0].players)
                 playersWithNew.push(identifier);
                 let scoreInfo = JSON.parse(selected[0].scoreInfo);
-                scoreInfo?.sum[identifier] = 0;
+                scoreInfo.sum[identifier] = 0;
                 await connection.query("UPDATE games SET scoreInfo=? WHERE gameCode=?", [JSON.stringify(scoreInfo), data.gameCode]);
                 await connection.query("UPDATE games SET players=? WHERE gameCode=?", [JSON.stringify(playersWithNew), data.gameCode]);
                 if (selected[0].status == "inGame") {
