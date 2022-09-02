@@ -140,7 +140,7 @@ function makeCode(length) {
                 let playersWithNew = JSON.parse(selected[0].players)
                 playersWithNew.push(identifier);
                 let scoreInfo = JSON.parse(selected[0].scoreInfo);
-                scoreInfo?.sum[identifier] = 0;
+                scoreInfo.sum[identifier] = 0;
                 await connection.query("UPDATE games SET scoreInfo=? WHERE gameCode=?", [JSON.stringify(scoreInfo), data.gameCode]);
                 await connection.query("UPDATE games SET players=? WHERE gameCode=?", [JSON.stringify(playersWithNew), data.gameCode]);
                 if (selected[0].status == "inGame") {
@@ -188,8 +188,18 @@ function makeCode(length) {
         });
         socket.on("leave", async (data) => {
             let [ selected ] = await connection.query("SELECT players FROM games WHERE gameCode=?", (data.gameCode));
-            let players = selected[0].players;
-            
+            let players = JSON.parse(selected[0]?.players);
+            if (players.indexOf(data.identifier) != -1) {
+                players.splice(players.indexOf(data.identifier), 1);
+            }
+            await connection.query("UPDATE games SET players=? WHERE gameCode=?", [players, data.gameCode]);
+            for (let i = 0; i < players.length; i++) {
+                let [ nickname ] = await connection.query("SELECT * FROM identifiers WHERE identifier=?", [players[i]]);
+                players[i] = nickname[0].nickname;
+            }
+            socket.leave(data.gameCode);
+            io.to(data.gameCode).emit("players-update", players);
+            socket.emit("leave-room");
         });
     });
     server.listen(3001);
