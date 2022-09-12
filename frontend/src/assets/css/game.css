@@ -1,0 +1,107 @@
+.create-room-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+}
+.room-setting {
+    height: 400px;
+    width: 500px;
+    background-color: white;
+    border-radius: 5px;
+}
+.room-settings-wrapper input {
+    color:#000000;
+}
+.room-settings-wrapper p {
+    margin-top: 13px;
+}
+.room-settings-wrapper > input {
+    margin-top: 12px;
+    font-size: 20px;
+    line-height: 24px;
+    height: 37px;
+}
+.players-wrapper {
+    width: 325px;
+    height: 476px;
+    background-color: white;
+    border-radius: 5px;
+}
+.create-room-wrapper > div:nth-child(2) {
+    margin-left: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.room-settings-wrapper button {
+    width: 100%;
+    height: 50px;
+}
+.players-wrapper h3, .room-setting h3 {
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 400;
+    text-align: center;
+    padding-top: 10px;
+}
+.room-players__profile {
+    background: #EFEFEF;
+    border-radius: 10px;
+    width: 90%;
+    height: 55px;
+}
+.room-players {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+    height: 90%;
+}
+.room-players__profile {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.room-players__profile h4 {
+    font-size: 27px;
+    line-height: 40px;
+    margin-right: 5px;
+}
+.room-players__profile img {
+    height: 70%;
+    margin-left: 10px;
+}
+.room-players__profile h5 {
+    font-size: 15px;
+    line-height: 24px;
+    margin-left: 10px;
+}
+.room-players__profile > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.room-players__avatar-wrapper {
+    position: relative;
+}
+.room-players__avatar-wrapper h4 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    opacity: 0.5;
+}
+.room-setting > div {
+    margin-left: 30px;
+}   
+.room-setting input {
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    margin-top: 15px;
+}

@@ -1,7 +1,8 @@
 import React, { createContext, useReducer } from "react";
 
 const initialState = {
-    isConnected: false
+    isConnected: false,
+    page: 'landing'
 };
 export const Store = createContext(initialState);
 
@@ -9,8 +10,10 @@ const reducer = (state, action) => {
     switch (action.type) {
     case "CONNECTION_STATE_UPDATED":
         return { ...state, isConnected: action.payload };
-        default:
-            return { state };
+    case "PAGE_UPDATED":
+        return { ...state, page: action.payload };
+    default:
+        return { state };
     }
 }
 

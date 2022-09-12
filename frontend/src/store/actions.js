@@ -4,3 +4,9 @@ export const updateConnectionStateAction = (dispatch, newState) => {
         payload: newState,
     });
 };
+export const updatePageAction = (dispatch, page) => {
+    return dispatch({
+        type: "PAGE_UPDATED",
+        payload: page,
+    });
+};

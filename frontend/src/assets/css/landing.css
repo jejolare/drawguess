@@ -31,7 +31,12 @@
     width: 800px;
     margin-top: 153px;
 }
-
+.join-wrapper .flex-wrapper {
+    width: 340px;
+}
+.join-wrapper .flex-wrapper button {
+    width: 100%;
+}
 @media screen and (max-height: 950px) {
     .landing-wrapper button {
         height: 55px;
