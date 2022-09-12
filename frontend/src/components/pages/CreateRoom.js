@@ -70,9 +70,9 @@ export default function CreateRoom() {
 
                     <div>
                         <p>Количество раундов (тут потом будет селект, но пока инпут)</p>
-                        <input type="text" onChange={setRoundsAmount} value={roundsAmount}/>
+                        <input type="text" onInput={e => setRoundsAmount(e.value)} value={roundsAmount}/>
                         <p>Время на рисование (тут потом будет селект, но пока инпут)</p>
-                        <input type="text" onChange={setDrawingTime} value={drawingTime}/>
+                        <input type="text" onInput={e => setDrawingTime(e.value)} value={drawingTime}/>
                     </div>
                 </div>
 
