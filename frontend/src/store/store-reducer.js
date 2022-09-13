@@ -2,7 +2,10 @@ import React, { createContext, useReducer } from "react";
 
 const initialState = {
     isConnected: false,
-    page: 'landing'
+    page: 'landing',
+    emit: undefined,
+    listener: undefined,
+    room: {}
 };
 export const Store = createContext(initialState);
 
@@ -12,6 +15,12 @@ const reducer = (state, action) => {
         return { ...state, isConnected: action.payload };
     case "PAGE_UPDATED":
         return { ...state, page: action.payload };
+    case "EMITTER_UPDATED":
+        return { ...state, emit: action.payload };
+    case "LISTENER_UPDATED":
+        return { ...state, listener: action.payload };
+    case "ROOM_UPDATED":
+        return { ...state, room: action.payload };
     default:
         return { state };
     }

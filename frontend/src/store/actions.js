@@ -10,3 +10,21 @@ export const updatePageAction = (dispatch, page) => {
         payload: page,
     });
 };
+export const updateSocketAction = (dispatch, emitter) => {
+    return dispatch({
+        type: "EMITTER_UPDATED",
+        payload: emitter,
+    });
+};
+export const updateListenerAction = (dispatch, listener) => {
+    return dispatch({
+        type: "LISTENER_UPDATED",
+        payload: listener,
+    });
+};
+export const updateRoomAction = (dispatch, room) => {
+    return dispatch({
+        type: "ROOM_UPDATED",
+        payload: room,
+    });
+};
