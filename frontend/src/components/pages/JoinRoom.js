@@ -2,8 +2,8 @@ import Button from '../UI/Button';
 import logoImg from '../../assets/images/logo.png';
 
 import { Store } from '../../store/store-reducer';
-import { useContext, useState, useEffect, updatePageAction } from 'react';
-import { updateRoomAction } from '../../store/actions';
+import { useContext, useState, useEffect } from 'react';
+import { updateRoomAction, updatePageAction } from '../../store/actions';
 
 export default function JoinRoom() {
 
