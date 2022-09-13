@@ -1,7 +1,28 @@
 import Button from '../UI/Button';
 import logoImg from '../../assets/images/logo.png';
 
+import { Store } from '../../store/store-reducer';
+import { useContext, useState, useEffect } from 'react';
+
 export default function JoinRoom() {
+
+    const { state, dispatch } = useContext(Store);
+    const [roomCode, setRoomCode] = useState('');
+
+    function joinRoom() {
+        state.emit('join', { nickname: state.name, gameCode: roomCode });
+    }
+
+    useEffect(() => {
+        state.listener(true, 'join-success', data => {
+            console.log(data);
+            // localStorage.setItem('roomData', JSON.stringify(data));
+            // updateRoomAction(dispatch, data);
+        });
+        return () => {
+            state.listener(false, 'join-success'); 
+        }
+    });
 
     return (
 
@@ -9,9 +30,14 @@ export default function JoinRoom() {
             <img src={logoImg} alt="logo" className='landing-logo' />
             <h1>DrawGuess.ru</h1>
             <div className='join-wrapper'>
-                <input type="text" placeholder='Введи код комнаты'/>
+                <input 
+                    type="text" 
+                    placeholder='Введи код комнаты'
+                    value={roomCode}
+                    onInput={e => setRoomCode(e.target.value)}
+                />
                 <div className='flex-wrapper'>
-                    <Button onClick={() => {}}>Присоединиться</Button>
+                    <Button onClick={joinRoom}>Присоединиться</Button>
                 </div>
             </div>
         </div>

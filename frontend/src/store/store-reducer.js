@@ -5,7 +5,8 @@ const initialState = {
     page: 'landing',
     emit: undefined,
     listener: undefined,
-    room: {}
+    room: {},
+    name: ''
 };
 export const Store = createContext(initialState);
 
@@ -21,6 +22,8 @@ const reducer = (state, action) => {
         return { ...state, listener: action.payload };
     case "ROOM_UPDATED":
         return { ...state, room: action.payload };
+    case "NAME_UPDATED":
+        return { ...state, name: action.payload };
     default:
         return { state };
     }

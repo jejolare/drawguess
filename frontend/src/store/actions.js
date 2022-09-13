@@ -28,3 +28,9 @@ export const updateRoomAction = (dispatch, room) => {
         payload: room,
     });
 };
+export const updateNameAction = (dispatch, name) => {
+    return dispatch({
+        type: "NAME_UPDATED",
+        payload: name,
+    });
+};

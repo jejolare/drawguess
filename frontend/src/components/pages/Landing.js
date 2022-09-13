@@ -2,7 +2,7 @@ import logoImg from '../../assets/images/logo.png';
 import '../../assets/css/landing.css';
 import '../../assets/css/game.css';
 import Button from '../UI/Button';
-import { updatePageAction, updateRoomAction } from '../../store/actions';
+import { updatePageAction, updateRoomAction, updateNameAction } from '../../store/actions';
 import { Store } from '../../store/store-reducer';
 import { useContext, useState, useEffect } from 'react';
 
@@ -10,17 +10,15 @@ export default function Landing() {
 
     const { state, dispatch } = useContext(Store);
 
-    const [username, setUsername] = useState('');
 
     function joinRoom() {
-        // if (!username) return alert('no username');
-        // state.emit('creating-menu-loaded', { nickname: username });
-        //updatePageAction(dispatch, 'join')
+        if (!state.name) return alert('no username');
+        updatePageAction(dispatch, 'join');
     }
 
     function createRoom() {
-        if (!username) return alert('no username');
-        state.emit('create-room', { nickname: username });
+        if (!state.name) return alert('no username');
+        state.emit('create-room', { nickname: state.name });
     }
 
     useEffect(() => {
@@ -45,7 +43,12 @@ export default function Landing() {
         <div className='landing-wrapper'>
             <img src={logoImg} alt="logo" className='landing-logo' />
             <h1>DrawGuess.ru</h1>
-            <input type="text" placeholder='Твой ник' value={username} onInput={e => setUsername(e.target.value)}/>
+            <input 
+                type="text" 
+                placeholder='Твой ник' 
+                value={state.name}
+                onInput={e => updateNameAction(dispatch, e.target.value)}
+             />
             <div className='flex-wrapper'>
                 <Button onClick={joinRoom}>Присоединиться</Button>
                 <Button 
