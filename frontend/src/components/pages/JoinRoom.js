@@ -2,7 +2,8 @@ import Button from '../UI/Button';
 import logoImg from '../../assets/images/logo.png';
 
 import { Store } from '../../store/store-reducer';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, updatePageAction } from 'react';
+import { updateRoomAction } from '../../store/actions';
 
 export default function JoinRoom() {
 
@@ -15,9 +16,9 @@ export default function JoinRoom() {
 
     useEffect(() => {
         state.listener(true, 'join-success', data => {
-            console.log(data);
-            // localStorage.setItem('roomData', JSON.stringify(data));
-            // updateRoomAction(dispatch, data);
+            updateRoomAction(dispatch, data);
+            localStorage.setItem('roomData', JSON.stringify(data));
+            updatePageAction(dispatch, 'createRoom');
         });
         return () => {
             state.listener(false, 'join-success'); 

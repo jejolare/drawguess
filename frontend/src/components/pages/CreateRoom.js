@@ -1,48 +1,15 @@
 import Button from '../UI/Button';
 import profileImg from '../../assets/images/profile.svg';
-import { useState, useContext } from 'react';
-import { updatePageAction } from '../../store/actions';
+import { useEffect, useContext } from 'react';
+import { updatePageAction, updateRoomAction } from '../../store/actions';
 import { Store } from '../../store/store-reducer';
 
 export default function CreateRoom() {
 
     const { state, dispatch } = useContext(Store);
 
-    const players = [
-        {
-            name: 'Андрей Беседин (гей)'
-            //other data
-        },
-        {
-            name: 'Дмитрий Колпаков'
-        },
-        {
-            name: 'Костя Котлин'
-        },
-        {
-            name: 'Андрей Беседин (гей)'
-            //other data
-        },
-        {
-            name: 'Дмитрий Колпаков'
-        },
-        {
-            name: 'Костя Котлин'
-        },
-        {
-            name: 'Андрей Беседин (гей)'
-            //other data
-        },
-        {
-            name: 'Дмитрий Колпаков'
-        },
-        {
-            name: 'Костя Котлин'
-        },
-        {
-            name: 'Костя Котлин'
-        }
-    ];
+    const players = state.room.players.map(name => ({ name }));
+    const isOwner = state.room.isOwner;
 
     function Player(props) {
         return (
@@ -58,9 +25,18 @@ export default function CreateRoom() {
         );
     }
 
+    function setRoundsAmount(amount) {
+        updateRoomAction(dispatch, { ...state.room, rounds: amount });
+    }
+    function setDrawingTime(amount) {
+        updateRoomAction(dispatch, { ...state.room, drawingTime: amount });
+    }
 
-    const [roundsAmount, setRoundsAmount] = useState(3);
-    const [drawingTime, setDrawingTime] = useState(80);
+
+    // useEffect(() => {
+    //     if (!isOwner) return;
+    //     state.emit('change-room-parameters', state.room);
+    // }, [state.room]);
 
     return (
         <div className="create-room-wrapper">
@@ -69,17 +45,27 @@ export default function CreateRoom() {
                     <h3>Настройки комнаты</h3>
 
                     <div>
-                        <p>Количество раундов (тут потом будет селект, но пока инпут)</p>
-                        <input type="text" onInput={e => setRoundsAmount(e.value)} value={roundsAmount}/>
-                        <p>Время на рисование (тут потом будет селект, но пока инпут)</p>
-                        <input type="text" onInput={e => setDrawingTime(e.value)} value={drawingTime}/>
+                        <p>Количество раундов</p>
+                        <input 
+                            type="text" 
+                            onInput={e => setRoundsAmount(e.value)} 
+                            value={state.room.rounds} 
+                            className={!isOwner ? 'btn_disabled' : undefined}
+                        />
+                        <p>Время на рисование</p>
+                        <input 
+                            type="text" 
+                            onInput={e => setDrawingTime(e.value)} 
+                            value={state.room.drawingTime}
+                            className={!isOwner ? 'btn_disabled' : undefined}
+                        />
                     </div>
                 </div>
 
                 <p>Код комнаты:</p>
-                <input type="text" value={'9EJoij704p7g'} readOnly/>
+                <input type="text" value={state.room.gameCode} readOnly/>
                 <p>Ссылка на подключение к комнате:</p>
-                <input type="text" value={'https://drawguess.ru/?9EJoij704p7g'} readOnly/>
+                <input type="text" value={`https://drawguess.ru?code=${state.room.gameCode}`} readOnly/>
             </div>
             <div className="room-settings-wrapper">
                 <div className="players-wrapper">
@@ -90,6 +76,7 @@ export default function CreateRoom() {
                 </div>
                 <Button 
                     onClick={() => updatePageAction(dispatch, 'game')}
+                    className={!isOwner ? 'btn_disabled' : undefined}
                 >
                     Играть
                 </Button>

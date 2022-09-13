@@ -25,8 +25,8 @@ export default function Landing() {
         if (!state.listener) return;
         
         state.listener(true, 'change-localstorage-data', data => {
-            localStorage.setItem('roomData', JSON.stringify(data));
-            updateRoomAction(dispatch, data);
+            localStorage.setItem('roomData', JSON.stringify({ ...data, isOwner: true }));
+            updateRoomAction(dispatch, { ...data, isOwner: true });
         });
 
         state.listener(true, 'creating-menu-loaded', () => {
