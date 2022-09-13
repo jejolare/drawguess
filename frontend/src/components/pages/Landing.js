@@ -12,29 +12,42 @@ export default function Landing() {
 
     const [username, setUsername] = useState('');
 
+    function joinRoom() {
+        // if (!username) return alert('no username');
+        // state.emit('creating-menu-loaded', { nickname: username });
+        //updatePageAction(dispatch, 'join')
+    }
+
     function createRoom() {
         if (!username) return alert('no username');
         state.emit('create-room', { nickname: username });
     }
+
     useEffect(() => {
         if (!state.listener) return;
         
         state.listener(true, 'change-localstorage-data', data => {
             localStorage.setItem('roomData', JSON.stringify(data));
             updateRoomAction(dispatch, data);
+        });
+
+        state.listener(true, 'creating-menu-loaded', () => {
             updatePageAction(dispatch, 'createRoom');
         });
         return () => {
-            state.listener(false, 'change-localstorage-data');
+            state.listener(false, 'change-localstorage-data'); 
+            state.listener(false, 'creating-menu-loaded');  
         }
     }, [state.listener]);
+
+
     return (
         <div className='landing-wrapper'>
             <img src={logoImg} alt="logo" className='landing-logo' />
             <h1>DrawGuess.ru</h1>
             <input type="text" placeholder='Твой ник' value={username} onInput={e => setUsername(e.target.value)}/>
             <div className='flex-wrapper'>
-                <Button onClick={() => updatePageAction(dispatch, 'join')}>Присоединиться</Button>
+                <Button onClick={joinRoom}>Присоединиться</Button>
                 <Button 
                     onClick={createRoom}
                 >
